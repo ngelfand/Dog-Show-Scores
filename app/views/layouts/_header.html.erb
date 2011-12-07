@@ -1,0 +1,12 @@
+<header>
+<% logo = image_tag("logo.png", :alt => "Scores Database", :class => "round") %>
+<%= link_to logo, root_path %>
+  <nav class="round">
+    <ul>
+      <li><%= link_to "Home", root_path %></li>
+	  <li><%= link_to "Obedience Scores", obedience_path %></li>
+	  <li><%= link_to "Agility Scores", agility_path %></li>
+      <li><%= link_to "Help", help_path %></li>
+    </ul>
+  </nav>
+</header>
