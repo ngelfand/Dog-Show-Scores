@@ -1,4 +1,12 @@
 Performancescores::Application.routes.draw do
+  get "judges/new"
+
+  get "judges/show"
+
+  get "judges/add"
+
+  get "judges/delete"
+
   get "pages/about"
   
   get "pages/home"
@@ -13,7 +21,9 @@ Performancescores::Application.routes.draw do
   match '/obedience',    :to => 'pages#obedience'
   match '/agility',    :to => 'pages#agility'
   
+  root :to => 'pages#home'
   
+  resources :judges
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -64,7 +74,6 @@ Performancescores::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'pages#home'
 
   # See how all your routes lay out with "rake routes"
 
