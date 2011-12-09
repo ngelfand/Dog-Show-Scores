@@ -1,4 +1,6 @@
 Performancescores::Application.routes.draw do
+  resources :comments
+
   get "shows/new"
 
   get "judges/new"
