@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111208034726) do
+ActiveRecord::Schema.define(:version => 20111208232547) do
 
   create_table "judges", :force => true do |t|
     t.integer  "judge_id"
@@ -25,5 +25,17 @@ ActiveRecord::Schema.define(:version => 20111208034726) do
   end
 
   add_index "judges", ["judge_id"], :name => "index_judges_on_judge_id", :unique => true
+
+  create_table "shows", :force => true do |t|
+    t.integer  "show_id"
+    t.string   "name"
+    t.string   "city"
+    t.string   "state"
+    t.datetime "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shows", ["show_id"], :name => "index_shows_on_show_id", :unique => true
 
 end

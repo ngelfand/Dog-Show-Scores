@@ -1,4 +1,6 @@
 Performancescores::Application.routes.draw do
+  get "shows/new"
+
   get "judges/new"
 
   get "judges/show"
@@ -25,6 +27,8 @@ Performancescores::Application.routes.draw do
   
   resources :judges
 
+  resources :shows
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
