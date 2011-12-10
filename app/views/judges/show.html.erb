@@ -1,1 +1,20 @@
-<%= @judge.name %>, <%= @judge.judge_id %>
+<h1>Judge Listing</h1>
+<b>Name: </b> <%= @judge.name %></br> 
+<b>AKC id:</b> <%= @judge.judge_id %></br>
+<b>Judging assignments:</b> <%= @shows.length %> total</br>
+
+<table>
+  <tr>
+    <th>Show</th>
+    <th>Date</th>
+    <th>Classes Judged</th>
+  </tr>
+
+<% @shows.zip(@classes).each do |show, obedclass| %>
+  <tr>
+    <td><%= show.name %></td>
+	<td><%= show.date.to_date %></td>
+	<td><%= obedclass.join(", ") %></td>
+  </tr>
+<% end %>
+</table>

@@ -9,6 +9,7 @@ class JudgesController < ApplicationController
   
   def show
     @judge = Judge.find_by_judge_id(params[:id])
+    @shows, @classes = @judge.showswithclasses
     @title = @judge.name
   end
 

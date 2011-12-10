@@ -31,4 +31,37 @@ namespace :populate do
       end
     end
   end
+  
+  task :shows_judges_novice => :environment do
+    myfile = File.open('../data/show-judge-novice.txt')
+    myfile.each_line do |line|
+      data = line.split(" ")
+      puts "#{data[0]} #{data[1]}"
+      j = Judge.find_by_judge_id(data[0])
+      s = Show.find_by_show_id(data[1])
+      Obedclass.create(:judge_id => j.id, :show_id => s.id, :classname => 'novice')
+    end
+  end
+  
+  task :shows_judges_open => :environment do
+    myfile = File.open('../data/show-judge-open.txt')
+    myfile.each_line do |line|
+      data = line.split(" ")
+      puts "#{data[0]} #{data[1]}"
+      j = Judge.find_by_judge_id(data[0])
+      s = Show.find_by_show_id(data[1])
+      Obedclass.create(:judge_id => j.id, :show_id => s.id, :classname => 'open')
+    end
+  end
+  
+  task :shows_judges_utility => :environment do
+    myfile = File.open('../data/show-judge-utility.txt')
+    myfile.each_line do |line|
+      data = line.split(" ")
+      puts "#{data[0]} #{data[1]}"
+      j = Judge.find_by_judge_id(data[0])
+      s = Show.find_by_show_id(data[1])
+      Obedclass.create(:judge_id => j.id, :show_id => s.id, :classname => 'utility')
+    end
+  end
 end
