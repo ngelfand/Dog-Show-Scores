@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  akc_id: MyString
+  owner: MyString
+  akc_name: MyString
+  breed: MyString
+
+two:
+  akc_id: MyString
+  owner: MyString
+  akc_name: MyString
+  breed: MyString

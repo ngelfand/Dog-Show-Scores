@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111210040257) do
+ActiveRecord::Schema.define(:version => 20111211062506) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(:version => 20111210040257) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "dogs", :force => true do |t|
+    t.string   "akc_id"
+    t.string   "owner"
+    t.string   "akc_name"
+    t.string   "breed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dogs", ["akc_id"], :name => "index_dogs_on_akc_id", :unique => true
 
   create_table "judges", :force => true do |t|
     t.integer  "judge_id"
@@ -37,6 +48,15 @@ ActiveRecord::Schema.define(:version => 20111210040257) do
     t.integer "judge_id"
     t.integer "show_id"
     t.string  "classname"
+  end
+
+  create_table "obedscores", :force => true do |t|
+    t.integer "show_id"
+    t.string  "dog_id"
+    t.string  "classname"
+    t.float   "score"
+    t.integer "placement"
+    t.string  "award"
   end
 
   create_table "shows", :force => true do |t|
