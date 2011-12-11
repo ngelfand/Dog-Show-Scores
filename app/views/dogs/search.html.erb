@@ -1,0 +1,24 @@
+<%= form_tag :controller => 'dogs', :action => 'search', :method => 'get' do %>
+<%= text_field_tag :search, params[:search], :id => 'search_field' %>
+<%= submit_tag "Search", :name => nil %> 
+<%= link_to_function "Clear", "$('search_field').clear()" %>
+<% end %>
+
+<table>
+  <tr>
+    <th>AKC Dog ID</th>
+    <th>Registered Name</th>
+    <th>Breed</th>
+    <th>Owner</th>
+  </tr>
+
+<% @dogs.each do |dog| %>
+  <tr>
+    <td><%= link_to dog.akc_id, dog_path(dog.akc_id) %></td>
+    <td><%= dog.akc_name %></td>
+    <td><%= dog.breed %></td>
+    <td><%= dog.owner %></td>
+  </tr>
+<% end %>
+</table>
+
