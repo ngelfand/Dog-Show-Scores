@@ -11,4 +11,9 @@ class DogsController < ApplicationController
     @show_results = Obedscore.find_all_by_dog_id(@dog.id, :include => :show)
     @show_results = @show_results
   end
+  
+  def search
+    @title = 'Dog search'
+    @dogs = Dog.search_name(params[:search])
+  end
 end
