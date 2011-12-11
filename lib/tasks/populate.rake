@@ -83,6 +83,7 @@ namespace :populate do
   def process_score_file(filename, show_id, classname)
     if File.exists?(filename)
       scorefile = File.open(filename)
+      show = Show.find_by_show_id(show_id)
       place = 1
       scorefile.each_line do |line|
         data = line.split(';')
@@ -104,7 +105,11 @@ namespace :populate do
         # update the score table with the dog
         # we should probably make sure that the dog/show/class entry doesn't
         # already exist, so that we can re-run populate many times
-        Obedscore.create(:show_id => show_id, :dog_id => akc_id, 
+        
+        # show and dog ids have to be the ids (primary keys) in the respective
+        # tables, because otherwise rails doesn't correctly pick up the
+        # many-many relationship
+        Obedscore.create(:show_id => show.id, :dog_id => dog.id, 
                          :classname => classname, :score => score,
                          :placement => place)
         place += 1

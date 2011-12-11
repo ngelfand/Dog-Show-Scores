@@ -1,0 +1,26 @@
+<h1>Dog information</h1>
+
+<b>Registered name:</b> <%= @dog.akc_name%></br>
+<b>AKC number: </b> <%= @dog.akc_id %></br>
+<b>Breed: </b> <%= @dog.breed %></br>
+<b>Owner: </b> <%= @dog.owner %></br>
+<b>Obedience show results</b>:
+<table>
+  <tr>
+    <th>Show name</th>
+    <th>Date</th>
+    <th>Class</th>
+    <th>Score</th>
+    <th>Placement</th>
+  </tr>
+
+<% @show_results.each do |result| %>
+<tr>
+	<td><%= result.show.name %></td>
+	<td><%= result.show.date.to_date %></td>
+	<td><%= result.classname %></td>
+	<td><%= result.score %></td>
+	<td><%= result.placement %></td>
+</tr>
+<% end %>
+</table>

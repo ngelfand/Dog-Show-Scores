@@ -1,0 +1,23 @@
+<h1>Listing dogs</h1>
+<%= will_paginate %>
+
+<table>
+  <tr>
+    <th>AKC Dog ID</th>
+    <th>Registered Name</th>
+    <th>Breed</th>
+    <th>Owner</th>
+  </tr>
+
+<% @dogs.each do |dog| %>
+  <tr>
+    <td><%= link_to dog.akc_id, dog_path(dog.akc_id) %></td>
+    <td><%= dog.akc_name %></td>
+    <td><%= dog.breed %></td>
+    <td><%= dog.owner %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate %>
