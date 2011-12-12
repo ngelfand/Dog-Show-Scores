@@ -2,7 +2,7 @@ namespace :populate do
   desc 'insert scraped data into the databse'
   task :judges => :environment do
     if ARGV.length == 1
-      filename == '../data/judges.txt'
+      filename == 'data/judges.txt'
     else
       filename = ARGV[1]
     end
@@ -20,7 +20,7 @@ namespace :populate do
   
   task :shows => :environment do
     if  ARGV.length == 1
-      files = ['../data/novice.txt', '../data/open.txt', '../data/utility.txt']
+      files = ['data/novice.txt', 'data/open.txt', 'data/utility.txt']
     else
       files = ARGV[1..ARGV.length]
     end
@@ -43,7 +43,7 @@ namespace :populate do
   end
   
   task :shows_judges_novice => :environment do
-    myfile = File.open('../data/show-judge-novice.txt')
+    myfile = File.open('data/show-judge-novice.txt')
     myfile.each_line do |line|
       data = line.split(" ")
       puts "#{data[0]} #{data[1]}"
@@ -54,7 +54,7 @@ namespace :populate do
   end
   
   task :shows_judges_open => :environment do
-    myfile = File.open('../data/show-judge-open.txt')
+    myfile = File.open('data/show-judge-open.txt')
     myfile.each_line do |line|
       data = line.split(" ")
       puts "#{data[0]} #{data[1]}"
@@ -65,7 +65,7 @@ namespace :populate do
   end
   
   task :shows_judges_utility => :environment do
-    myfile = File.open('../data/show-judge-utility.txt')
+    myfile = File.open('data/show-judge-utility.txt')
     myfile.each_line do |line|
       data = line.split(" ")
       puts "#{data[0]} #{data[1]}"
