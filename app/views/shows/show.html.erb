@@ -1,7 +1,25 @@
 <center>
 <h1><%= @show.name %></h1>
-<%= @show.date %></br>
+<%= @show.date.to_date %></br>
 <%= @show.city %>, <%= @show.state %><br>
 </center>
 
+<h2>Judges</h2>
+<% @classes.each do |obedclass| %>
+<%= obedclass.classname.capitalize %> 
+Judge: <%= link_to obedclass.judge.name, judge_path(obedclass.judge.judge_id) %></br>
+<% end %>
 
+<p>
+<h2>Scores</h2>
+<% current = '' %>
+<% @scores.each do |score| %>
+  <% if current != score.classname %>
+    <p><b><%= score.classname %></b></br>
+    <% current = score.classname %>
+  <% end %>
+<%= score.placement %> 
+<%= link_to score.dog.akc_name, dog_path(score.dog.akc_id) %>
+<%= score.classname %>
+</br>
+<% end %>

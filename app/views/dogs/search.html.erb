@@ -15,7 +15,7 @@
 <% @dogs.each do |dog| %>
   <tr>
     <td><%= link_to dog.akc_id, dog_path(dog.akc_id) %></td>
-    <td><%= dog.akc_name %></td>
+	<td><%= link_to dog.akc_name, dog_path(dog.akc_id) %></td>
     <td><%= dog.breed %></td>
     <td><%= dog.owner %></td>
   </tr>

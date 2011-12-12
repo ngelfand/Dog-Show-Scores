@@ -1,0 +1,25 @@
+<h1>AKC Obedience Shows</h1>
+<p>
+	This is the list of AKC obedience shows going back to somewhere in 1999. Click on the show name to see the results. The oldest shows (1999-2000) do not all have associated results, but do have lists of judges. <i>There's a bug with the city field, we'll fix that as soon as we figure out what caused it.</i>	
+<%= will_paginate %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Date</th>
+  </tr>
+
+<% @shows.each do |show| %>
+  <tr>
+    <td><%= link_to show.name, show_path(show.show_id) %></td>
+	<td><%= show.city %></td>
+	<td><%= show.state %></td>
+	<td><%= show.date.to_date %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate %>

@@ -1,10 +1,17 @@
-Search dogs
+<h1>Dogs</h1>
+<p>
+The dogs in this list have qualified in at least one obedience show between year 2000 and now. Click on dog's AKC id to see the list of shows and scores. 
+</p>
+
+
+Search dogs (any part of registered name)
 <%= form_tag :controller => 'dogs', :action => 'search', :method => 'get' do %>
 <%= text_field_tag :search, params[:search], :id => 'search_field' %>
 <%= submit_tag "Search", :name => nil %> 
 <%= link_to_function "Clear", "$('search_field').clear()" %>
 <% end %>
 
+<p>
 <%= will_paginate %>
 
 <table>
@@ -18,7 +25,7 @@ Search dogs
 <% @dogs.each do |dog| %>
   <tr>
     <td><%= link_to dog.akc_id, dog_path(dog.akc_id) %></td>
-    <td><%= dog.akc_name %></td>
+    <td><%= link_to dog.akc_name, dog_path(dog.akc_id) %></td>
     <td><%= dog.breed %></td>
     <td><%= dog.owner %></td>
   </tr>

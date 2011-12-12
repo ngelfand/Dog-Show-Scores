@@ -4,7 +4,7 @@ class JudgesController < ApplicationController
 
   def index
     @title = "All Judges"
-    @judges = Judge.paginate(:page=>params[:page])
+    @judges = Judge.paginate(:page=>params[:page], :order=>'judge_id ASC')
   end
   
   def show

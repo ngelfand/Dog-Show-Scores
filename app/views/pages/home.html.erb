@@ -1,4 +1,15 @@
 <h1>Canine Performance Scores Database</h1>
 <p>
-This is the homepage for the <i>Canine Performance Scores Database</i>. The data here is collected from the public information available on <a href="http://www.akc.org">AKC website</a></p>
+This is the homepage for the <i>Canine Performance Scores Database</i>. The data here is collected from the public information available on <a href="http://www.akc.org">AKC website</a> <p>
 
+<p>The site contains the results from the <i>regular classes only</i> of obedience shows going back to year 2000 (all that AKC has available digitally on their site). We do not guarantee that this data is complete or even accurate, but we did our best to make it that way. If you find any errors or omissions, please <%= link_to "contact us", contact_path %></p>
+
+<p>What can you do with this:
+<ul>
+	<li>See a searchable list of all <%= link_to "dogs", dogs_path %>. You can search by (part of) the registered name. Breed and AKC id search coming soon.
+	</li>
+	
+	<li>List all <%= link_to "AKC obedience judges", judges_path %></li>
+	
+	<li>See a list of all <%= link_to "obedience shows", shows_path %></li>
+</ul>

@@ -16,7 +16,7 @@
 
 <% @show_results.each do |result| %>
 <tr>
-	<td><%= result.show.name %></td>
+	<td><%= link_to result.show.name, show_path(result.show.show_id) %></td>
 	<td><%= result.show.date.to_date %></td>
 	<td><%= result.classname %></td>
 	<td><%= result.score %></td>

@@ -8,7 +8,8 @@ class DogsController < ApplicationController
     @dog = Dog.find_by_akc_id(params[:id])
     @title = "Dog #{@dog.akc_id}"
     # get all the shows this dog was in
-    @show_results = Obedscore.find_all_by_dog_id(@dog.id, :include => :show)
+    @show_results = Obedscore.find_all_by_dog_id(@dog.id, :include => :show, 
+                                                :order=>'shows.date ASC')
     @show_results = @show_results
   end
   
