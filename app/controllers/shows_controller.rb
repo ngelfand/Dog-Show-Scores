@@ -4,10 +4,10 @@ class ShowsController < ApplicationController
 
   def show
     @show = Show.find_by_show_id(params[:id])
-    @title = "@show.name"
+    @title = "#{@show.name}"
     @classes = Obedclass.find_all_by_show_id(@show.id, :include => :judge)
     @scores = Obedscore.find_all_by_show_id(@show.id, :include => :dog,
-                                            :order => 'classname ASC')
+                                            :order => 'classname ASC, placement ASC')
   end
   
   def index
