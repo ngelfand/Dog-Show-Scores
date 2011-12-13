@@ -12,7 +12,7 @@
 
 <% @shows.zip(@classes).each do |show, obedclass| %>
   <tr>
-    <td><%= show.name %></td>
+    <td><%= link_to show.name, show_path(show.show_id) %></td>
 	<td><%= show.date.to_date %></td>
 	<td><%= obedclass.join(", ") %></td>
   </tr>
