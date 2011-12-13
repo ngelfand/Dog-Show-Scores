@@ -20,8 +20,11 @@ Performancescores::Application.routes.draw do
 
   get "pages/contact"
 
+  get "pages/issues"
+  
   get "home/index"
   
+  match '/issues', :to => 'pages#issues'
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
