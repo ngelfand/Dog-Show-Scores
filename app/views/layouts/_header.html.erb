@@ -1,6 +1,11 @@
 <header>
+<table>
+<tr>
+		<td rowspan = "2">
 <% logo = image_tag("logo.png", :alt => "Scores Database", :class => "round") %>
 <%= link_to logo, root_path %>
+</td>
+<td>
   <nav class="round">
     <ul>
       <li><%= link_to "Home", root_path %></li>
@@ -10,4 +15,14 @@
       <li><%= link_to "Help", help_path %></li>   
     </ul>
   </nav>
+</td>
+</tr>
+<t>
+<td>
+<h1 class=round>
+	<%= link_to "Dog Show Scores Database", root_path %>
+</h1>
+</td>
+</tr>
+</table>
 </header>
