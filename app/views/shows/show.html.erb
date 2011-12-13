@@ -19,7 +19,8 @@ Judge: <%= link_to obedclass.judge.name, judge_path(obedclass.judge.judge_id) %>
     <% current = score.classname %>
   <% end %>
 <%= score.placement %> 
-<%= link_to score.dog.akc_name, dog_path(score.dog.akc_id) %>
-<%= score.classname %>
+<%= link_to score.dog.akc_name, dog_path(score.dog.akc_id) %>,
+<%= score.dog.breed %>,
+<%= score.score %>
 </br>
 <% end %>
