@@ -10,8 +10,8 @@ class Dog < ActiveRecord::Base
   # Search by the AKC registered name, or part of it
   #
   def self.search_name(condition)
-    search_condition = "%" + condition + "%"
-    find(:all, :conditions => ['akc_name LIKE ?', search_condition])
+    search_condition = "%" + condition.downcase + "%"
+    find(:all, :conditions => ['lower(akc_name) LIKE ?', search_condition])
   end
   
   #
