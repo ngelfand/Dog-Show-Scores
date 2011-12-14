@@ -28,4 +28,14 @@ class Judge < ActiveRecord::Base
     end
     return result_shows.values, result_classes.values
   end
+  
+  
+  ##################################################################### 
+  # Search by judge name using LIKE
+  ##################################################################### 
+  def self.search(column_value, page)
+     search_type = "lower(name) LIKE ?"
+     search_value = "%" + column_value.downcase + "%"
+     paginate(:page=>page, :conditions => [search_type, search_value])
+   end
 end

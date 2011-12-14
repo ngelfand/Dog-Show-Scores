@@ -14,6 +14,8 @@ Performancescores::Application.routes.draw do
 
   get "judges/delete"
 
+  get "judges/search"
+  
   get "pages/about"
   
   get "pages/home"

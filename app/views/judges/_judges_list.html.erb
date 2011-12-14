@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>AKC Judge ID</th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @judges.each do |judge| %>
+  <tr>
+    <td><%= judge.judge_id %></td>
+    <td><%= link_to judge.name, judge_path(judge.judge_id) %></td>
+  </tr>
+<% end %>
+</table>

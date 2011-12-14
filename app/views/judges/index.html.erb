@@ -1,25 +1,9 @@
 <h1>AKC Obedience judges</h1>
-<p>
+
 This is the list of AKC obedience judges, as provided by <a href="http://www.infodog.com/">InfoDog</a>. Click on judge's name to see the list of shows and classes that they have judged.
+<p>
+<%= render 'search_box' %>
+<%= will_paginate %>
+<%= render 'judges_list' %>
+<%= will_paginate %>
 </p>
-<%= will_paginate %>
-
-<table>
-  <tr>
-    <th>AKC Judge ID</th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @judges.each do |judge| %>
-  <tr>
-    <td><%= judge.judge_id %></td>
-    <td><%= link_to judge.name, judge_path(judge.judge_id) %></td>
-  </tr>
-<% end %>
-</table>
-
-
-<%= will_paginate %>

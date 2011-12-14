@@ -13,6 +13,11 @@ class JudgesController < ApplicationController
     @title = @judge.name
   end
 
+  def search
+    @title = 'Judge search'
+    @judges = Judge.search(params[:search], params[:page])
+  end
+  
   def add
   end
 
