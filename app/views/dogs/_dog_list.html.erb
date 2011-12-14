@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>AKC Dog ID</th>
+    <th>Registered Name</th>
+    <th>Breed</th>
+    <th>Owner</th>
+  </tr>
+
+<% @dogs.each do |dog| %>
+  <tr>
+    <td><%= link_to dog.akc_id, dog_path(dog.akc_id) %></td>
+	<td><%= link_to dog.akc_name, dog_path(dog.akc_id) %></td>
+    <td><%= dog.breed %></td>
+    <td><%= dog.owner %></td>
+  </tr>
+<% end %>
+</table>

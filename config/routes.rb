@@ -1,6 +1,6 @@
 Performancescores::Application.routes.draw do
 
-  post "dogs/search"
+  get "dogs/search"
   
   get "dogs/show"
   

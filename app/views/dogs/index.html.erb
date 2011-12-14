@@ -3,34 +3,11 @@
 The dogs in this list have qualified in at least one obedience show between year 2000 and now. Click on dog's AKC id to see the list of shows and scores. 
 </p>
 
-
-Search dogs (any part of registered name)
-<%= form_tag :controller => 'dogs', :action => 'search', :method => 'get' do %>
-<%= text_field_tag :search, params[:search], :id => 'search_field' %>
-<%= submit_tag "Search", :name => nil %> 
-<%= link_to_function "Clear", "$('search_field').clear()" %>
-<% end %>
-
+<%= render 'search_box' %>
 <p>
 <%= will_paginate %>
 
-<table>
-  <tr>
-    <th>AKC Dog ID</th>
-    <th>Registered Name</th>
-    <th>Breed</th>
-    <th>Owner</th>
-  </tr>
-
-<% @dogs.each do |dog| %>
-  <tr>
-    <td><%= link_to dog.akc_id, dog_path(dog.akc_id) %></td>
-    <td><%= link_to dog.akc_name, dog_path(dog.akc_id) %></td>
-    <td><%= dog.breed %></td>
-    <td><%= dog.owner %></td>
-  </tr>
-<% end %>
-</table>
+<%= render 'dog_list' %>
 
 
 <%= will_paginate %>

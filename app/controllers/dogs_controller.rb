@@ -11,10 +11,10 @@ class DogsController < ApplicationController
     @show_results = Obedscore.find_all_by_dog_id(@dog.id, :include => :show, 
                                                 :order=>'shows.date ASC')
     @show_results = @show_results
-  end
+  end  
   
   def search
     @title = 'Dog search'
-    @dogs = Dog.search_name(params[:search])
+    @dogs = Dog.search(params[:searchtype], params[:search], params[:page])
   end
 end
