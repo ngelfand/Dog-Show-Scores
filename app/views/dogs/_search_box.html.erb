@@ -2,12 +2,12 @@
 <%= text_field_tag :search, params[:search] %>
 <%= submit_tag "Search Dogs", :name => nil %> 
 by
-<% check = true ? params[:searchtype].nil? || params[:searchtype].eql?("name") : false %>
-<%= radio_button_tag :searchtype, 'name', check %>
+<% check = true ? params[:searchtype].nil? || params[:searchtype].eql?("akc_name") : false %>
+<%= radio_button_tag :searchtype, 'akc_name', check %>
 <%= label_tag :searchtype, 'AKC Name' %> 
 
-<% check = true ? params[:searchtype].eql?("number") : false %>
-<%= radio_button_tag :searchtype, 'number', check %>
+<% check = true ? params[:searchtype].eql?("akc_id") : false %>
+<%= radio_button_tag :searchtype, 'akc_id', check %>
 <%= label_tag :searchtype, 'AKC Number' %> 
 
 <% check = true ? params[:searchtype].eql?("breed") : false %>

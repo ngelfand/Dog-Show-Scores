@@ -15,4 +15,7 @@ class ShowsController < ApplicationController
     @shows = Show.paginate(:page=>params[:page], :order=>'date DESC')
   end
   
+  def search
+    @shows = Show.search(params[:searchtype], params[:search], params[:page])
+  end
 end

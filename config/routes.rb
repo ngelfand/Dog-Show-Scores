@@ -6,6 +6,8 @@ Performancescores::Application.routes.draw do
   
   get "shows/new"
 
+  get "shows/search"
+  
   get "judges/new"
 
   get "judges/show"

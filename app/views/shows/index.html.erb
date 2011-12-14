@@ -7,25 +7,7 @@
 	Also, the first page or so of shows (most recent ones) doesn't have any results yet because when the AKC site was scraped, the results were not available yet. We'll re-crawl the site sometime soon.
 </p>
 
+<%= render 'search_box' %>
 <%= will_paginate %>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Date</th>
-  </tr>
-
-<% @shows.each do |show| %>
-  <tr>
-    <td><%= link_to show.name, show_path(show.show_id) %></td>
-	<td><%= show.city %></td>
-	<td><%= show.state %></td>
-	<td><%= show.date.to_date %></td>
-  </tr>
-<% end %>
-</table>
-
-
+<%= render 'shows_list'%>
 <%= will_paginate %>

@@ -1,0 +1,17 @@
+<%= form_tag ({:action => 'search'}, :method => 'get') do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search Shows", :name => nil %> 
+by
+<% check = true ? params[:searchtype].nil? || params[:searchtype].eql?("name") : false %>
+<%= radio_button_tag :searchtype, 'name', check %>
+<%= label_tag :searchtype, 'Name' %> 
+
+<% check = true ? params[:searchtype].eql?("city") : false %>
+<%= radio_button_tag :searchtype, 'city', check %>
+<%= label_tag :searchtype, 'City' %> 
+
+<% check = true ? params[:searchtype].eql?("state") : false %>
+<%= radio_button_tag :searchtype, 'state', check %>
+<%= label_tag :searchtype, 'State (two letter)' %> 
+
+<% end %>
