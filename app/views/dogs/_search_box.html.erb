@@ -14,4 +14,8 @@ by
 <%= radio_button_tag :searchtype, 'breed', check %>
 <%= label_tag :searchtype, 'Breed' %> 
 
+<% check = true ? params[:searchtype].eql?("owner") : false %>
+<%= radio_button_tag :searchtype, 'owner', check %>
+<%= label_tag :searchtype, 'Owner' %>
+
 <% end %>
