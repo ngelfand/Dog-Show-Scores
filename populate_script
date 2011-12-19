@@ -1,0 +1,17 @@
+rake populate:scores ../import_data/16/*
+rake populate:scores ../import_data/15/*
+rake populate:scores ../import_data/14/*
+rake populate:scores ../import_data/13/*
+rake populate:scores ../import_data/12/*
+rake populate:scores ../import_data/11/*
+rake populate:scores ../import_data/10/*
+rake populate:scores ../import_data/9/*
+rake populate:scores ../import_data/8/*
+rake populate:scores ../import_data/7/*
+rake populate:scores ../import_data/6/*
+rake populate:scores ../import_data/5/*
+rake populate:scores ../import_data/4/*
+rake populate:scores ../import_data/3/*
+rake populate:scores ../import_data/2/*
+rake populate:scores ../import_data/1/*
+

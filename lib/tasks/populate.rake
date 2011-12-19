@@ -81,6 +81,8 @@ namespace :populate do
   # The classname parameter is stored together with the score
   #
   def process_score_file(filename, show_id, classname)
+    created = 0
+    updated = 0
     if File.exists?(filename)
       scorefile = File.open(filename)
       show = Show.find_by_show_id(show_id)
@@ -92,31 +94,52 @@ namespace :populate do
         breed = data[2]
         owner = data[3]
         score = data[4]
-        dog = Dog.find_by_akc_id(akc_id)
-        if dog.nil?
-          # create a new dog entry 
-          dog = Dog.create(:akc_id => akc_id, :akc_name => akc_name, 
-                            :breed => breed, :owner => owner)
-          # TODO: if the dog already exists, we should probably make sure
-          # we have the highest title. however if we do insertions in reverse
-          # date order, we may not have to because we would already have the
-          # latest title first
-        end
+        dog = Dog.find_or_create_by_akc_id(akc_id, :akc_name => akc_name, 
+                          :breed => breed, :owner => owner)
         # update the score table with the dog
-        # we should probably make sure that the dog/show/class entry doesn't
-        # already exist, so that we can re-run populate many times
-        
         # show and dog ids have to be the ids (primary keys) in the respective
         # tables, because otherwise rails doesn't correctly pick up the
         # many-many relationship
-        Obedscore.create(:show_id => show.id, :dog_id => dog.id, 
-                         :classname => classname, :score => score,
-                         :placement => place)
+        # and how's this for an awesomely long function name?
+        obscore = Obedscore.find_by_show_id_and_dog_id_and_classname(show.id, dog.id, classname)
+        if obscore.nil?
+          Obedscore.create(:show_id => show.id, :dog_id => dog.id, :classname => classname,
+                            :score => score, :placement => place,
+                            :dog_name => akc_name)
+          created += 1
+        else
+          # update the non-key fields
+          obscore.update_attributes(:score=>score, :placement=>place, :dog_name=>akc_name)
+          updated += 1
+        end
+                          
         place += 1
       end
+      puts "#{filename } Created #{created} scores. Updated #{updated} scores."
     end
   end
   
+  
+  #
+  # Process the main file from the show directory and enter the show, judge
+  # and classes information into the appropriate place.
+  #
+  def process_main_file(filename, sid)
+    mainfile = File.open(filename, 'r')
+    line = mainfile.gets
+    data = line.split('; ')
+    #puts "Name=#{data[0]}, City=#{data[1]}, State=#{data[2]}, Date=#{data[3]}"
+    show = Show.find_or_create_by_show_id(sid, :name=>data[0], :city=>data[1],
+                                          :state=>data[2], :date=>data[3])
+    puts "Show id: #{show.id}"
+    while (line = mainfile.gets)
+      data = line.split('; ')
+      #puts "Class=#{data[0]},Name=#{data[1]},id=#{data[2]}"
+      judge = Judge.find_or_create_by_judge_id(data[2], :name=>data[1])
+      obed = Obedclass.find_or_create_by_judge_id_and_show_id_and_classname(judge.id, show.id, data[0])
+      puts "  Judge id: #{judge.id} Class id: #{obed.id}"
+    end
+  end
   
   #
   # Read in the score files (typically from the dumps directory) and for each
@@ -125,6 +148,7 @@ namespace :populate do
   #
   task :scores => :environment do
     # hash map of classes to abbreviations
+    # 646532 scores should be created from data as of 12/16
     classnames = {'NA'=>'Novice A', 'NB'=>'Novice B', 'OA'=>'Open A', 'OB'=>'Open B',
       'UA'=>'Utility A', 'UB'=>'Utility B'}
     showdirs = ARGV[1..ARGV.length]
@@ -136,6 +160,17 @@ namespace :populate do
       end
     end
   end
-
-
+  
+  #
+  # Read in the main file from the show directory and create the necessary entires
+  # in the show and judges tables.
+  #
+  task :shows_judges => :environment do
+    showdirs = ARGV[1..ARGV.length]
+    showdirs.each do |dir|
+      puts "Getting show info from #{dir}"
+      filename = "#{dir}/main.txt"
+      process_main_file(filename, File.basename(dir))
+    end
+  end
 end
