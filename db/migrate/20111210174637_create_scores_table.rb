@@ -7,6 +7,7 @@ class CreateScoresTable < ActiveRecord::Migration
       t.float    :score
       t.integer  :placement
       t.string   :award
+      t.string   :dog_name
     end
   end
 
