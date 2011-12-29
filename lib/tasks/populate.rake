@@ -136,7 +136,7 @@ namespace :populate do
       data = line.split('; ')
       #puts "Class=#{data[0]},Name=#{data[1]},id=#{data[2]}"
       judge = Judge.find_or_create_by_judge_id(data[2], :name=>data[1])
-      obed = Obedclass.find_or_create_by_judge_id_and_show_id_and_classname(judge.id, show.id, data[0])
+      obed = Obedclass.find_or_create_by_judge_id_and_show_id_and_classname(judge.id, show.id, data[0],:dogs_in_class=>data[3])
       puts "  Judge id: #{judge.id} Class id: #{obed.id}"
     end
   end

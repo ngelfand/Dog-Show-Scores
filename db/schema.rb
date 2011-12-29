@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111216234027) do
+ActiveRecord::Schema.define(:version => 20111219215609) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20111216234027) do
     t.integer "judge_id"
     t.integer "show_id"
     t.string  "classname"
+    t.integer "dogs_in_class"
   end
 
   create_table "obedscores", :force => true do |t|

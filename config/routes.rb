@@ -1,31 +1,25 @@
 Performancescores::Application.routes.draw do
 
-  get "dogs/search"
+  resources :ralshows
+
+  get "rally/show"
   
+  get "dogs/search"
   get "dogs/show"
   
   get "shows/new"
-
   get "shows/search"
   
   get "judges/new"
-
   get "judges/show"
-
   get "judges/add"
-
   get "judges/delete"
-
   get "judges/search"
   
   get "pages/about"
-  
   get "pages/home"
-
   get "pages/contact"
-
   get "pages/issues"
-  
   get "home/index"
   
   match '/issues', :to => 'pages#issues'
@@ -37,12 +31,10 @@ Performancescores::Application.routes.draw do
   
   root :to => 'pages#home'
   
+  resources :rally
   resources :judges
-
   resources :shows
-  
   resources :dogs
-  
   resources :comments
   
   # The priority is based upon order of creation:
