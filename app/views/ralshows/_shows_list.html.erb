@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Date</th>
+  </tr>
+
+<% @ralshows.each do |show| %>
+  <tr>
+    <td><%= link_to show.name, ralshow_path(show.show_id) %></td>
+	<td><%= show.city %></td>
+	<td><%= show.state %></td>
+	<td><%= show.date.to_date %></td>
+  </tr>
+<% end %>
+</table>

@@ -2,16 +2,20 @@
 <p>
 Welcome to the <i>Canine Performance Scores Database</i>. The data here is collected from the public information available on <a href="http://www.akc.org">AKC website</a> <p>
 
-<p>The site contains the results from the <i>regular classes only</i> of obedience shows going back to year 2000 (all that AKC has available digitally on their site). We do not guarantee that this data is complete or even accurate, but we did our best to make it that way. If you find any errors or omissions, please <%= link_to "contact us", contact_path %></p>
+<p>The site contains the results from the <i>regular classes only</i> of obedience shows going back to 2000 (all that AKC has available digitally on their site) and rally shows going back to 2005. We do not guarantee that this data is complete or even accurate, but we did our best to make it that way. If you find any errors or omissions, please <%= link_to "contact us", contact_path %></p>
 
-<h3>What can you do with this?</h3>
+<h3>Available information</h3>
 <ul>
-	<li>See a searchable list of all <%= link_to "dogs", dogs_path %>. You can search by the registered name, breed, owner and AKC number.
+	<li>View a searchable list of all <%= link_to "dogs", dogs_path %>. You can search by the registered name, breed, owner and AKC number. For each dog, we list the AKC obedience and rally scores.
 	</li>
+	
+	<li>See a searchable list of <%= link_to "AKC obedience shows", shows_path %> and results for each show.</li>
+	
+	<li>See a searchable list of <%= link_to "AKC rally shows", ralshows_path %> and results for each show.</li>
 	
 	<li>View a searchable list of <%= link_to "AKC obedience judges", judges_path %>. For each judge, we link to all of his/her judging assignments. </li>
 	
-	<li>See a searchable list of <%= link_to "obedience shows", shows_path %> and results for each show.</li>
+
 </ul>
 <p>
 Before proceeding, check out our list of <%=link_to 'known issues', help_path %>.
@@ -20,4 +24,5 @@ Before proceeding, check out our list of <%=link_to 'known issues', help_path %>
 <h3>Site news</h3>
 <ul>
 	<li>12/18/11: November obedience shows have been added.</li>
+	<li>1/10/12: Rally scores are now available.</li>
 </ul>

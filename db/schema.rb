@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111219215609) do
+ActiveRecord::Schema.define(:version => 20120103154923) do
 
   create_table "comments", :force => true do |t|
     t.string   "title"
@@ -60,6 +60,42 @@ ActiveRecord::Schema.define(:version => 20111219215609) do
     t.string  "award"
     t.string  "dog_name"
   end
+
+  add_index "obedscores", ["dog_id"], :name => "index_obedscores_on_dog_id"
+  add_index "obedscores", ["show_id"], :name => "index_obedscores_on_show_id"
+
+  create_table "ralclasses", :force => true do |t|
+    t.integer "judge_id"
+    t.integer "ralshow_id"
+    t.string  "classname"
+    t.integer "dogs_in_class"
+  end
+
+  create_table "ralscores", :force => true do |t|
+    t.integer "ralshow_id"
+    t.integer "dog_id"
+    t.string  "classname"
+    t.float   "score"
+    t.integer "placement"
+    t.string  "award"
+    t.string  "dog_name"
+    t.integer "classorder"
+  end
+
+  add_index "ralscores", ["dog_id"], :name => "index_ralscores_on_dog_id"
+  add_index "ralscores", ["ralshow_id"], :name => "index_ralscores_on_ralshow_id"
+
+  create_table "ralshows", :force => true do |t|
+    t.integer  "show_id"
+    t.string   "name"
+    t.string   "city"
+    t.string   "state"
+    t.datetime "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ralshows", ["show_id"], :name => "index_ralshows_on_show_id", :unique => true
 
   create_table "shows", :force => true do |t|
     t.integer  "show_id"

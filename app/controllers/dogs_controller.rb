@@ -10,7 +10,10 @@ class DogsController < ApplicationController
     # get all the shows this dog was in
     @show_results = Obedscore.find_all_by_dog_id(@dog.id, :include => :show, 
                                                 :order=>'shows.date ASC')
-    @show_results = @show_results
+    # get all rally shows this dog was in
+    @ralshow_results = Ralscore.find_all_by_dog_id(@dog.id, :include => :ralshow, 
+                                                  :order=>'ralshows.date ASC')
+    
   end  
   
   def search

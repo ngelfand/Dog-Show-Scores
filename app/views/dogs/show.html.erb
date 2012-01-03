@@ -22,5 +22,26 @@
 	<td><%= result.score %></td>
 	<td><%= result.placement %></td>
 </tr>
+
+<% end %>
+</table>
+
+<b>Rally show results</b>:
+<table>
+  <tr>
+    <th>Show name</th>
+    <th>Date</th>
+    <th>Class</th>
+    <th>Score</th>
+    <th>Placement</th>
+  </tr>
+<% @ralshow_results.each do |result| %>
+<tr>
+	<td><%= link_to result.ralshow.name, ralshow_path(result.ralshow.show_id) %></td>
+	<td><%= result.ralshow.date.to_date %></td>
+	<td><%= result.classname %></td>
+	<td><%= result.score %></td>
+	<td><%= result.placement %></td>
+</tr>
 <% end %>
 </table>
