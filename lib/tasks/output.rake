@@ -60,4 +60,20 @@ namespace :output do
       outfile.write("#{judge.judge_id}; #{judge.name}\n")
     end
   end
+  
+  task :rally_shows => :environment do
+    outfile = File.open(ARGV[1], 'w')
+    shows = Ralshow.all(:order => 'show_id ASC')
+    shows.each do |show|
+      outfile.write("#{show.show_id}\n")
+    end
+  end
+  
+  task :obed_shows => :environment do
+    outfile = File.open(ARGV[1], 'w')
+    shows = Show.all(:order => 'show_id ASC')
+    shows.each do |show|
+      outfile.write("#{show.show_id}\n")
+    end
+  end
 end

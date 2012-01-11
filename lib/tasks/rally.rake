@@ -23,7 +23,7 @@ namespace :rally do
         # tables, because otherwise rails doesn't correctly pick up the
         # many-many relationship
         # and how's this for an awesomely long function name?
-        Ralscore.find_or_create_by_ralshow_id_and_dog_id_and_classname(show.id, dog.id, classname, 
+        score = Ralscore.find_or_create_by_ralshow_id_and_dog_id_and_classname(show.id, dog.id, classname, 
                                                                     :score=>score, :placement=>place, :dog_name=>akc_name)
         place += 1
       end

@@ -1,8 +1,6 @@
 <h3>Please come into the ring!</h3>
-<p>
-Welcome to the <i>Canine Performance Scores Database</i>. The data here is collected from the public information available on <a href="http://www.akc.org">AKC website</a> <p>
 
-<p>The site contains the results from the <i>regular classes only</i> of obedience shows going back to 2000 (all that AKC has available digitally on their site) and rally shows going back to 2005. We do not guarantee that this data is complete or even accurate, but we did our best to make it that way. If you find any errors or omissions, please <%= link_to "contact us", contact_path %></p>
+<p>The site contains the results from the <i>regular classes only</i> of obedience shows going back to 2000 and rally shows going back to 2005. The data is collected from the public information available on <a href="http://www.akc.org">AKC website</a>. We do not guarantee that this data is complete or even accurate, but we did our best to make it that way. If you find any errors or omissions, please check the <%= link_to "Help Page", help_path %> first, and then <%= link_to "contact us", contact_path %>.</p>
 
 <h3>Available information</h3>
 <ul>
@@ -17,12 +15,12 @@ Welcome to the <i>Canine Performance Scores Database</i>. The data here is colle
 	
 
 </ul>
-<p>
-Before proceeding, check out our list of <%=link_to 'known issues', help_path %>.
-</p>
 
 <h3>Site news</h3>
 <ul>
 	<li>12/18/11: November obedience shows have been added.</li>
 	<li>1/10/12: Rally scores are now available.</li>
 </ul>
+
+<hr>
+<%= render 'donate' %>

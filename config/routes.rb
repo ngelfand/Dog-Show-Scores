@@ -1,4 +1,6 @@
 Performancescores::Application.routes.draw do
+
+  get "titles/search"
   get "ralshows/search"
   
   get "dogs/search"
@@ -28,6 +30,7 @@ Performancescores::Application.routes.draw do
   
   root :to => 'pages#home'
   
+  resources :titles
   resources :ralshows
   resources :judges
   resources :shows

@@ -80,9 +80,7 @@ namespace :populate do
   # Given a score file name, read in the scores and update the Scores table.
   # The classname parameter is stored together with the score
   #
-  def process_score_file(filename, show_id, classname)
-    created = 0
-    updated = 0
+  def obedience_process_score_file(filename, show_id, classname)
     if File.exists?(filename)
       scorefile = File.open(filename)
       show = Show.find_by_show_id(show_id)
@@ -101,21 +99,10 @@ namespace :populate do
         # tables, because otherwise rails doesn't correctly pick up the
         # many-many relationship
         # and how's this for an awesomely long function name?
-        obscore = Obedscore.find_by_show_id_and_dog_id_and_classname(show.id, dog.id, classname)
-        if obscore.nil?
-          Obedscore.create(:show_id => show.id, :dog_id => dog.id, :classname => classname,
-                            :score => score, :placement => place,
-                            :dog_name => akc_name)
-          created += 1
-        else
-          # update the non-key fields
-          obscore.update_attributes(:score=>score, :placement=>place, :dog_name=>akc_name)
-          updated += 1
-        end
-                          
+        Obedscore.find_or_create_by_show_id_and_dog_id_and_classname(show.id, dog.id, classname, 
+                                                                        :score=>score, :placement=>place, :dog_name=>akc_name)                    
         place += 1
       end
-      puts "#{filename } Created #{created} scores. Updated #{updated} scores."
     end
   end
   
@@ -124,7 +111,7 @@ namespace :populate do
   # Process the main file from the show directory and enter the show, judge
   # and classes information into the appropriate place.
   #
-  def process_main_file(filename, sid)
+  def obedience_process_main_file(filename, sid)
     mainfile = File.open(filename, 'r')
     line = mainfile.gets
     data = line.split('; ')
@@ -137,7 +124,7 @@ namespace :populate do
       #puts "Class=#{data[0]},Name=#{data[1]},id=#{data[2]}"
       judge = Judge.find_or_create_by_judge_id(data[2], :name=>data[1])
       obed = Obedclass.find_or_create_by_judge_id_and_show_id_and_classname(judge.id, show.id, data[0],:dogs_in_class=>data[3])
-      puts "  Judge id: #{judge.id} Class id: #{obed.id}"
+      #puts "  Judge id: #{judge.id} Class id: #{obed.id}"
     end
   end
   
@@ -156,7 +143,7 @@ namespace :populate do
       puts "Getting scores from #{dir}"
       classnames.keys.each do |classname|
         filename = "#{dir}/#{classname}.txt"
-        process_score_file(filename, File.basename(dir), classnames[classname])
+        obedience_process_score_file(filename, File.basename(dir), classnames[classname])
       end
     end
   end
@@ -170,7 +157,7 @@ namespace :populate do
     showdirs.each do |dir|
       puts "Getting show info from #{dir}"
       filename = "#{dir}/main.txt"
-      process_main_file(filename, File.basename(dir))
+      obedience_process_main_file(filename, File.basename(dir))
     end
   end
 end

@@ -1,0 +1,18 @@
+<h1>Breed and Title Search</h1>
+
+<p>
+Use this page to find dogs that have achieved a given obedience or rally title. Please keep in mind that we do not guarantee that our data is complete or accurate, so use the results with caution. If you need official titles and results, you are better off contacting <a href="www.akc.org">AKC</a> directly.
+</p>
+
+<p>
+Find all dogs of a given breed that have a given title.
+
+<%= form_tag({:action => :search}, {:method => :get}) do %>
+<%= label_tag(:breed, 'Breed') %>
+<%= text_field_tag(:breed, params[:breed])%>
+<%= label_tag(:title, 'Title') %>
+<%= select_tag("title", options_for_select(@titles)) %>
+<%= submit_tag("Search", :name => nil) %> 
+<% end %>
+
+</p>
