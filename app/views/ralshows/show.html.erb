@@ -4,10 +4,14 @@
 <%= @show.city %>, <%= @show.state %><br>
 </center>
 
-<h2>Judges</h2>
+<h2>Classes</h2>
 <% @classes.each do |obedclass| %>
 <%= obedclass.classname.titleize %> 
-: <%= link_to obedclass.judge.name, judge_path(obedclass.judge.judge_id) %></br>
+: <%= link_to obedclass.judge.name, judge_path(obedclass.judge.judge_id) %>
+<% if not obedclass.dogs_in_class.nil? %> 
+, <%= obedclass.dogs_in_class%> dogs
+<% end %>
+</br>
 <% end %>
 
 <p>

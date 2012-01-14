@@ -4,7 +4,7 @@ namespace :rally do
   # Given a score file name, read in the scores and update the Scores table.
   # The classname parameter is stored together with the score
   #
-  def process_score_file(filename, show_id, classname)
+  def rally_process_score_file(filename, show_id, classname, order)
     if File.exists?(filename)
       scorefile = File.open(filename)
       show = Ralshow.find_by_show_id(show_id)
@@ -24,7 +24,7 @@ namespace :rally do
         # many-many relationship
         # and how's this for an awesomely long function name?
         score = Ralscore.find_or_create_by_ralshow_id_and_dog_id_and_classname(show.id, dog.id, classname, 
-                                                                    :score=>score, :placement=>place, :dog_name=>akc_name)
+                                                                    :score=>score, :placement=>place, :dog_name=>akc_name, :classorder=>order)
         place += 1
       end
     end
@@ -35,7 +35,7 @@ namespace :rally do
   # Process the main file from the show directory and enter the show, judge
   # and classes information into the appropriate place.
   #
-  def process_main_file(filename, sid)
+  def rally_process_main_file(filename, sid)
     mainfile = File.open(filename, 'r')
     line = mainfile.gets
     data = line.split('; ')
@@ -62,12 +62,13 @@ namespace :rally do
     # 646532 scores should be created from data as of 12/16
     classnames = {'RNA'=>'Rally Novice A', 'RNB'=>'Rally Novice B', 'RAA'=>'Rally Advanced A', 'RAB'=>'Rally Advanced B',
       'REA'=>'Rally Excellent A', 'REB'=>'Rally Excellent B'}
+    orders = {'RNA'=>1, 'RNB'=>2, 'RAA'=>3, 'RAB'=>4,'REA'=>5, 'REB'=>6}
     showdirs = ARGV[1..ARGV.length]
     showdirs.each do |dir|
       puts "Getting rally scores from #{dir}"
       classnames.keys.each do |classname|
         filename = "#{dir}/#{classname}.txt"
-        process_score_file(filename, File.basename(dir), classnames[classname])
+        rally_process_score_file(filename, File.basename(dir), classnames[classname], orders[classname])
       end
     end
   end
@@ -81,7 +82,7 @@ namespace :rally do
     showdirs.each do |dir|
       puts "Getting show info from #{dir}"
       filename = "#{dir}/main.txt"
-      process_main_file(filename, File.basename(dir))
+      rally_process_main_file(filename, File.basename(dir))
     end
   end
   

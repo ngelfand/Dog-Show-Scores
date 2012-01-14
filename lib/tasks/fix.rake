@@ -54,5 +54,12 @@ namespace :fix do
       end
     end
   end
+  
+  task :beginner_novice => :environment do
+    obeds = Obedscore.find_all_by_classname('BeginnerNovice B')
+    obeds.each do |obed|
+      obed.update_attributes(:classname => 'Beginner Novice B')
+    end
+  end
 end
 

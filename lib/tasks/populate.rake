@@ -82,6 +82,7 @@ namespace :populate do
   #
   def obedience_process_score_file(filename, show_id, classname)
     if File.exists?(filename)
+      puts " #{classname}"
       scorefile = File.open(filename)
       show = Show.find_by_show_id(show_id)
       place = 1
@@ -118,14 +119,21 @@ namespace :populate do
     #puts "Name=#{data[0]}, City=#{data[1]}, State=#{data[2]}, Date=#{data[3]}"
     show = Show.find_or_create_by_show_id(sid, :name=>data[0], :city=>data[1],
                                           :state=>data[2], :date=>data[3])
-    puts "Show id: #{show.id}"
+    puts "Obedience Show id: #{show.id}"
     while (line = mainfile.gets)
       data = line.split('; ')
-      #puts "Class=#{data[0]},Name=#{data[1]},id=#{data[2]}"
-      judge = Judge.find_or_create_by_judge_id(data[2], :name=>data[1])
+      puts "    Class=#{data[0]},Judge Name=#{data[1]}, Judge id=#{data[2]}, Dogs=#{data[3]}"
+      judge = Judge.find_or_create_by_judge_id(data[2], :name=>data[1])      
       obed = Obedclass.find_or_create_by_judge_id_and_show_id_and_classname(judge.id, show.id, data[0],:dogs_in_class=>data[3])
       #puts "  Judge id: #{judge.id} Class id: #{obed.id}"
     end
+  end
+  
+  #
+  # Remove the old Novice/Open/Utility classes that we added using the original script
+  def obedience_delete_old_classes(sid)
+    show = Show.find_by_show_id(sid)
+    Obedclass.delete_all(["show_id = ?", show.id])
   end
   
   #
@@ -137,7 +145,8 @@ namespace :populate do
     # hash map of classes to abbreviations
     # 646532 scores should be created from data as of 12/16
     classnames = {'NA'=>'Novice A', 'NB'=>'Novice B', 'OA'=>'Open A', 'OB'=>'Open B',
-      'UA'=>'Utility A', 'UB'=>'Utility B'}
+      'UA'=>'Utility A', 'UB'=>'Utility B', 'BNA'=>'Beginner Novice A', 'BNB'=>'Beginner Novice B', 'GN'=>'Graduate Novice', 'GO'=>'Graduate Open',
+        'V'=>'Versatility' }
     showdirs = ARGV[1..ARGV.length]
     showdirs.each do |dir|
       puts "Getting scores from #{dir}"
@@ -148,6 +157,37 @@ namespace :populate do
     end
   end
   
+  #
+  # Insert only the scores from the optional titling classes.
+  #
+  task :optional_scores => :environment do
+    # hash map of classes to abbreviations
+    # 646532 scores should be created from data as of 12/16
+    classnames = {'BNA'=>'Beginner Novice A', 'BNB'=>'Beginner Novice B', 'GN'=>'Graduate Novice', 'GO'=>'Graduate Open',
+      'V'=>'Versatility'}
+    showdirs = ARGV[1..ARGV.length]
+    showdirs.each do |dir|
+      puts "Getting scores from #{dir}"
+      classnames.keys.each do |classname|
+        filename = "#{dir}/#{classname}.txt"
+        obedience_process_score_file(filename, File.basename(dir), classnames[classname])
+      end
+    end
+  end
+  
+  #
+  # Re-insert new classes, deleting old classes
+  #
+  task :redo_shows_judges  => :environment do
+    showdirs = ARGV[1..ARGV.length]
+    showdirs.each do |dir|
+      puts "Getting show info from #{dir}"
+      filename = "#{dir}/main.txt"
+      sid = File.basename(dir)
+      obedience_delete_old_classes(sid)
+      obedience_process_main_file(filename, sid)
+    end
+  end
   #
   # Read in the main file from the show directory and create the necessary entires
   # in the show and judges tables.
