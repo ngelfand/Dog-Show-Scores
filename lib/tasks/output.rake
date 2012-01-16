@@ -76,4 +76,10 @@ namespace :output do
       outfile.write("#{show.show_id}\n")
     end
   end
+  
+  # Find all shows where we have duplicate scores and output their ID.
+  # And for the record, I hate you, AKC
+  task :duplicate_scores => :environment do
+    
+  end
 end

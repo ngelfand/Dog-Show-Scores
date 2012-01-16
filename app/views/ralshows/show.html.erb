@@ -1,5 +1,6 @@
 <center>
 <h1><%= @show.name %> Rally</h1>
+AKC show id: <%= link_to @show.show_id, "http://www.akc.org/events/search/index_results.cfm?action=event_info&comp_type=RLY&status=RSLT&event_number=#{@show.show_id}&cde_comp_group=CONF&cde_comp_type=O&NEW_END_DATE1=&key_stkhldr_event=&mixed_breed=N" %></br>
 <%= @show.date.to_date %></br>
 <%= @show.city %>, <%= @show.state %><br>
 </center>
