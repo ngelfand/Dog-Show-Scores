@@ -1,5 +1,7 @@
 Performancescores::Application.routes.draw do
 
+  get "breedpages/collie"
+  get "breedpages/yorkshire_terrier"
   get "titles/search"
   get "ralshows/search"
   

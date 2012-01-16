@@ -26,6 +26,20 @@
 <% end %>
 </table>
 
+<p>
+<% if @openb_average > 0 %>
+Average score in Open B: <%= @openb_average %><br>
+<% end %>
+
+<% if @utilb_average > 0 %>
+Average score in Utility B: <%= @utilb_average %><br>
+<% end %>
+
+<% if @num_200s > 0 %>
+Number of 200 scores: <%= @num_200s %>
+<% end %>
+</p>
+	
 <b>Rally show results</b>:
 <table>
   <tr>

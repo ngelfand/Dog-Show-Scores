@@ -1,0 +1,42 @@
+<h2>Yorkshire Terrier Results Page</h2>
+
+Please select the date range for which you want the collie scores and press "Get Scores".<br>
+<p>
+<%= form_tag({:action => :yorkshire_terrier}, {:method => :get}) do %>
+Start date: <%= select_date @start_date.nil? ? Date.today : @start_date, :prefix => :start_date %><br> 	
+End date: &nbsp;<%= select_date @end_date.nil? ? Date.today : @end_date, :prefix => :end_date %><br>
+<%= submit_tag "Get scores", :name => nil %> 
+<%end %>
+</p>
+
+<%if not @scores.nil? %>
+<p>	
+Yorkshire Terriers that earned qualifying obedience scores between <%= @start_date.to_date %> and <%= @end_date.to_date %>
+<table>
+  <tr>
+    <th>Dog Name</th>
+    <th>AKC ID</th>
+    <th>Owner Name</th>
+    <th>Show Name</th>
+	<th>Show Date</th>
+    <th>Class</th>
+	<th>Score</th>
+ 	<th>Placement</th>
+  </tr>
+
+<% @scores.each do |result| %>
+<tr>
+	<td><%= link_to result.dog.akc_name, dog_path(result.dog.akc_id) %>
+	<td><%= result.dog.akc_id %>
+	<td><%= result.dog.owner %>
+	<td><%= link_to result.show.name, show_path(result.show.show_id) %>
+	<td><%= result.show.date.to_date %>
+	<td><%= result.classname %>
+	<td><%= result.score %>
+	<td><%= result.placement %>
+</tr>
+<% end %>
+</table>
+</p>
+
+<%end%>
