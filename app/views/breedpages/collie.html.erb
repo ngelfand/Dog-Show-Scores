@@ -16,25 +16,25 @@ Found <%= @scores.length %> collie obedience scores between <%= @start_date.to_d
 <table>
   <tr>
     <th>Dog Name</th>
-    <th>AKC ID</th>
 	<th>Breed</th>
     <th>Owner Name</th>
     <th>Show Name</th>
-	<th>Show Date</th>
-    <th>Class</th>
- 	<th>Placement</th>
+	<th>Date</th>
+    <th>Classname</th>
+	<th>Score</th>
+ 	<th>Place</th>
   </tr>
 
 <% @scores.zip(@totals).each do |result, total| %>
 <tr>
-	<td><%= link_to result.dog.akc_name, dog_path(result.dog.akc_id) %>
-	<td><%= result.dog.akc_id %>
-	<td><%= result.dog.breed %>
-	<td><%= result.dog.owner %>
-	<td><%= link_to result.show.name, show_path(result.show.show_id) %>
-	<td><%= result.show.date.to_date %>
-	<td><%= result.classname %>
-	<td><%= result.placement %> (<%=total%>)
+	<td><%= link_to result.dog.akc_name, dog_path(result.dog.akc_id) %></td>
+	<td><%= result.dog.breed %></td>
+	<td><%= result.dog.owner %></td>
+	<td><%= link_to result.show.name, show_path(result.show.show_id) %></td>
+	<td><%= result.show.date.to_date %></td>
+	<td><%= result.classname %></td>
+	<td><%= result.score%></td>
+	<td><%= result.placement %> (<%=total%>)</td>
 </tr>
 <% end %>
 </table>
