@@ -11,7 +11,7 @@ End date: &nbsp;<%= select_date @end_date.nil? ? Date.today : @end_date, :prefix
 
 <%if not @scores.nil? %>
 <p>	
-<%= @scores.length %> collies that earned qualifying obedience scores between <%= @start_date.to_date %> and <%= @end_date.to_date %>
+Found <%= @scores.length %> collie obedience scores between <%= @start_date.to_date %> and <%= @end_date.to_date %>
 
 <table>
   <tr>
