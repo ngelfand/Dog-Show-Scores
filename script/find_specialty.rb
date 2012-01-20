@@ -23,7 +23,7 @@ end
     
 
 output = badshows.map { |i| i.to_s }.join(" ")
-command1 = "python ../scripts/parse_shows_and_results.py -o #{output}"
+command1 = "python python/parse_shows_and_results.py -o #{output}"
 puts "==== First command: #{command1}"
 system command1
 command2 = "rake obedience:redo_scores #{output}"

@@ -1,81 +1,4 @@
-namespace :obedience do
-  desc 'insert scraped data into the databse'
-  task :judges => :environment do
-    if ARGV.length == 1
-      filename == 'data/judges.txt'
-    else
-      filename = ARGV[1]
-    end
-    puts "Inserting judges from file #{filename}"
-    myfile = File.open(filename, 'r')
-    myfile.each_line do |line|
-      data = line.split(";")
-      judge_id = data[0]
-      judge_name = data[1]
-      judge_name = judge_name.strip
-      puts "Judge id [#{judge_id}] name [#{judge_name}]"
-      Judge.create(:judge_id=>judge_id, :name=>judge_name)
-    end
-  end
-  
-  task :shows => :environment do
-    if  ARGV.length == 1
-      files = ['data/novice.txt', 'data/open.txt', 'data/utility.txt']
-    else
-      files = ARGV[1..ARGV.length]
-    end
-    
-    files.each do |file|
-      puts "Inserting shows from files #{file}"
-      myfile = File.open(file)
-      myfile.each_line do |line|
-        data = line.split(";")
-        show_id = data[0]
-        show_name = data[1].strip
-        city = data[2].strip
-        state = data[3].strip
-        dt = data[4].strip
-        puts "Show #{show_id} #{show_name} #{city} #{state} #{dt}"
-        Show.create(:show_id=>show_id, :name=>show_name, 
-                    :city=>city, :state=>state, :date=>dt)
-      end
-    end
-  end
-  
-  task :shows_judges_novice => :environment do
-    myfile = File.open('data/show-judge-novice.txt')
-    myfile.each_line do |line|
-      data = line.split(" ")
-      puts "#{data[0]} #{data[1]}"
-      j = Judge.find_by_judge_id(data[0])
-      s = Show.find_by_show_id(data[1])
-      Obedclass.create(:judge_id => j.id, :show_id => s.id, :classname => 'novice')
-    end
-  end
-  
-  task :shows_judges_open => :environment do
-    myfile = File.open('data/show-judge-open.txt')
-    myfile.each_line do |line|
-      data = line.split(" ")
-      puts "#{data[0]} #{data[1]}"
-      j = Judge.find_by_judge_id(data[0])
-      s = Show.find_by_show_id(data[1])
-      Obedclass.create(:judge_id => j.id, :show_id => s.id, :classname => 'open')
-    end
-  end
-  
-  task :shows_judges_utility => :environment do
-    myfile = File.open('data/show-judge-utility.txt')
-    myfile.each_line do |line|
-      data = line.split(" ")
-      puts "#{data[0]} #{data[1]}"
-      j = Judge.find_by_judge_id(data[0])
-      s = Show.find_by_show_id(data[1])
-      Obedclass.create(:judge_id => j.id, :show_id => s.id, :classname => 'utility')
-    end
-  end
-  
-  
+namespace :obedience do  
   #
   # Given a score file name, read in the scores and update the Scores table.
   # The classname parameter is stored together with the score
@@ -154,6 +77,18 @@ namespace :obedience do
   end
   
   #
+  # Delete all scores for a given show, and re-insert them. Caution, can screw up the database!
+  def obedience_delete_scores(showdirs)
+    showdirs.each do |dir|
+      puts "Deleting scores from #{dir}"
+      filename = "#{dir}/main.txt"
+      sid = File.basename(dir)
+      show = Show.find_by_show_id(sid)
+      Obedscore.delete_all(["show_id = ?", show.id])
+    end
+  end  
+  
+  #
   # Read in the score files (typically from the dumps directory) and for each
   # file insert the data into the Scores table, and optionally into the Dogs
   # table if this is the first time the dog is encountered.
@@ -203,18 +138,6 @@ namespace :obedience do
       puts "Getting show info from #{dir}"
       filename = "#{dir}/main.txt"
       obedience_process_main_file(filename, File.basename(dir))
-    end
-  end
-  
-  #
-  # Delete all scores for a given show, and re-insert them. Caution, can screw up the database!
-  def obedience_delete_scores(showdirs)
-    showdirs.each do |dir|
-      puts "Deleting scores from #{dir}"
-      filename = "#{dir}/main.txt"
-      sid = File.basename(dir)
-      show = Show.find_by_show_id(sid)
-      Obedscore.delete_all(["show_id = ?", show.id])
     end
   end
   

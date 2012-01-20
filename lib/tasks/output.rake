@@ -1,13 +1,15 @@
 namespace :output do
-  task :dogs => :environment do
+  def write_dog_name_files(prefix)
     dogs = Dog.find(:all)
     count = 0
     filecount = 0
+    filenames = []
     outfile = File.open("foo.txt", 'w')
     dogs.each do |dog|
       if count % 1000 == 0
-        filename = "#{ARGV[1]}_#{filecount}.txt"
+        filename = "#{prefix}_#{filecount}.txt"
         puts filename
+        filenames.push(filename)
         outfile = File.open(filename, 'w')
         filecount += 1
       end
@@ -16,6 +18,11 @@ namespace :output do
       outfile.write("#{dog.akc_id}; #{dog.akc_name}\n")
       count += 1
     end
+    return filenames
+  end
+  
+  task :dogs => :environment do
+    write_dog_name_files(ARGV[1])
   end
 
   task :recent_dogs => :environment do

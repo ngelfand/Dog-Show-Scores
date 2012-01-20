@@ -47,6 +47,9 @@ namespace :fix do
       akc_id = data[0]
       oldname = data[1]
       newname = data[2]
+      akc_id = akc_id.strip()
+      oldname = oldname.strip()
+      newname = newname.strip()
       if oldname != newname
         puts "Updating #{oldname} to #{newname}"
         dog = Dog.find_by_akc_id(akc_id)
@@ -59,6 +62,23 @@ namespace :fix do
     obeds = Obedscore.find_all_by_classname('BeginnerNovice B')
     obeds.each do |obed|
       obed.update_attributes(:classname => 'Beginner Novice B')
+    end
+  end
+  
+  # Somehow we managed to get newlines in the dogs' names
+  task :dog_name_newlines => :environment do
+    dogs = Dog.find(:all)
+    count = 1
+    dogs.each do |d|
+      if count % 10000 == 0
+        puts "#{count}"
+      end
+      name = d.akc_name
+      name = name.strip()
+      str = Dog.__send__(:sanitize_sql, ["UPDATE Dogs SET akc_name=? WHERE id = #{d.id}", name])
+      #puts str
+      Dog.connection.execute(str)
+      count += 1
     end
   end
 end
